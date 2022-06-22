@@ -118,3 +118,33 @@ class Bitazza:
             MessageType.REQUEST
         )
         return self._receive_message()
+
+    def get_lastest_price(self, instrument_id: int, oms_id: int=None):
+        if oms_id is None:
+            oms_id = self.oms_id
+        response = self.get_level_1(instrument_id, oms_id)
+        return (response['BestBid'] + response['BestOffer']) / 2
+
+    def get_level_1(self, instrument_id: int, oms_id: int=None):
+        if oms_id is None:
+            oms_id = self.oms_id
+        self._send_message("GetLevel1",
+            {
+                "InstrumentId": instrument_id,
+                "omsId": oms_id
+            },
+            MessageType.REQUEST
+        )
+        return self._receive_message()
+
+    def get_instruments(self, oms_id: int=None):
+        if oms_id is None:
+            oms_id = self.oms_id
+        self._send_message("GetInstruments",
+            {
+                "omsId": oms_id
+            },
+            MessageType.REQUEST
+        )
+        return self._receive_message()
+

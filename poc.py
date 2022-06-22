@@ -13,5 +13,6 @@ obj = Bitazza(
     signature=os.getenv('SIGNATURE'),
     )
 
-pprint(obj.get_account_info())
-pprint(obj.get_account_balance())
+# pprint(obj.get_account_info())
+# pprint([a for a in obj.get_instruments() if 'BTC' in a['Symbol']])
+pprint(obj.get_lastest_price(1))
